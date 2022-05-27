@@ -21,6 +21,7 @@ namespace Employee_Mockup_WebDemo.Controllers
             {
 
                 lst = db.Employee.Where(a => a.FirstName.Contains(searchString)).ToList();
+         
             }
             else
             {
@@ -30,10 +31,11 @@ namespace Employee_Mockup_WebDemo.Controllers
         }
 
         // GET: Employee/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
+        //public ActionResult Reset()
+        //{
+            
+        //    return View();
+        //}
 
         // GET: Employee/Create
         public ActionResult Create()
