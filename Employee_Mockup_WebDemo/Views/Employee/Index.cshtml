@@ -1,0 +1,96 @@
+﻿@model IEnumerable<Employee_Mockup_WebDemo.Models.Employee>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+<head>
+
+    <script type="text/javascript" src="@Url.Content("~/Scripts/")jquery-3.4.1.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#checkBoxAll').click(function () {
+                if ($(this).is(":checked"))
+                    $('.chCheckBoxId').prop('checked', true);
+                else
+                    $('.chCheckBoxId').prop('checked', false);
+            });
+
+        });
+    </script>
+    <script>
+        function ClearFields() {
+
+            document.getElementById("search").value = "";
+            
+        }
+    </script>
+
+</head>
+
+<body>
+    <div class="form-horizontal">
+        @using (Html.BeginForm("Index", "Employee", FormMethod.Get))
+        {
+            <form >
+                <h4>@Html.DisplayName("Filter Name:")</h4>
+                <input type="text" id="search" placeholder="Enter Employee Name...." name="searchString" style="width:400px" value="@ViewData["CurrentFilter"]" />
+                <input type="submit" class="btn btn-default" value="Filter" />
+                <button type="button" onclick="ClearFields();">Clear</button>
+                
+            </form>
+        }
+    </div>
+    <div class="form-horizontal"></div>
+
+
+    @using (Html.BeginForm("Delete", "Employee", FormMethod.Post))
+    {
+        <p></p>
+        <a href="/Employee/Create" class="btn btn-success">Add New Employee</a>
+        <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure?')"><i class="glyphicon glyphicon-trash"></i></button>
+        <p></p>
+        <table class="table">
+            <tr>
+                <th>
+                    <input type="checkbox" id="checkBoxAll">
+                </th>
+                <th>
+                    @Html.DisplayName("Name")
+                </th>
+                <th>
+
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Email)
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <input type="checkbox" class="chCheckBoxId" value="@item.Id" name="employeeId">
+                    </td>
+                   
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FirstName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LastName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                    <td>
+                        <a href="/Employee/Edit/@item.Id" class="btn btn-primary"><i class="glyphicon glyphicon-pencil"></i></a>
+                    </td>
+                </tr>
+            }
+
+        </table>
+    }
+</body>
